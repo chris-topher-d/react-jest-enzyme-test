@@ -2,7 +2,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import Headline from './Headline';
 
-import { findByTestAtrr } from '../../utils/index';
+import { findByTestAtrr, checkProps } from '../../utils/index';
 
 const setup = (props = {}) => {
     const component = shallow(<Headline {...props} />);
@@ -10,6 +10,26 @@ const setup = (props = {}) => {
 };
 
 describe('Headline Component', () => {
+    describe('Checking PropTypes', () => {
+        test('Should not throw a warning', () => {
+            const expectedProps = {
+                header: 'Test Header',
+                desc: 'Test Desc',
+                tempArray: [{
+                    fName: 'Test Name',
+                    lname: 'Test lName',
+                    email: 'test@gmail.com',
+                    age: 33,
+                    onlineStatus: true
+                }]
+            };
+
+            const propsError = checkProps(Headline, expectedProps);
+
+            expect(propsError).toBeUndefined();
+        })
+    })
+
     describe('Have props', () => {
         let wrapper;
         beforeEach(() => {
