@@ -31,7 +31,7 @@ class App extends Component {
     const { posts } = this.props;
     const configButton = {
       buttonText: 'Get Posts',
-      emitEvent: this.fetch()
+      emitEvent: this.fetch
     };
 
     return (
@@ -53,7 +53,7 @@ class App extends Component {
                   desc: body
                 };
                 return (
-                  <ListItem title={title} desc={body} />
+                  <ListItem key={index} title={title} desc={body} />
                 );
               })}
             </div>
@@ -64,10 +64,8 @@ class App extends Component {
   }
 }
 
-const mapStateToProps = state => {
-  return {
-    posts: state.posts
-  };
-}
+const mapStateToProps = state => ({
+  posts: state.posts
+});
 
 export default connect(mapStateToProps, { fetchPosts })(App);
