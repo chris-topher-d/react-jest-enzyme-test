@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
 import Header from './components/header/Header';
 import Headline from './components/headline/Headline';
+import SharedButton from './components/buttons/Buttons';
+import ListItem from './components/listItem/ListItem';
+import { connect } from 'react-redux';
+import { fetchPosts } from './actions/actions';
 import './app.scss';
 
 const tempArray = [{
@@ -12,7 +16,24 @@ const tempArray = [{
 }];
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+
+    }
+  }
+
+  fetch = () => {
+    this.props.fetchPosts();
+  }
+
   render() {
+    const { posts } = this.props;
+    const configButton = {
+      buttonText: 'Get Posts',
+      emitEvent: this.fetch()
+    };
+
     return (
       <div className="App">
         <Header />
@@ -22,10 +43,31 @@ class App extends Component {
             desc="Click the button to render posts!"
             tempArray={tempArray}
           />
+          <SharedButton {...configButton} />
+          {posts.length > 0 && 
+            <div>
+              {posts.map((post, index) => {
+                const { title, body } = post;
+                const configListItem = {
+                  title,
+                  desc: body
+                };
+                return (
+                  <ListItem title={title} desc={body} />
+                );
+              })}
+            </div>
+          }
         </section>
       </div>
     );
   }
 }
 
-export default App;
+const mapStateToProps = state => {
+  return {
+    posts: state.posts
+  };
+}
+
+export default connect(mapStateToProps, { fetchPosts })(App);
