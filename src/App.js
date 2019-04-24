@@ -53,7 +53,7 @@ class App extends Component {
                   desc: body
                 };
                 return (
-                  <ListItem key={index} title={title} desc={body} />
+                  <ListItem key={index} {...configListItem} />
                 );
               })}
             </div>

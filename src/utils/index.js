@@ -1,6 +1,6 @@
 import checkPropTypes from 'check-prop-types';
 import { applyMiddleware, createStore } from 'redux';
-import rootReducer from '../rootReducer';
+import rootReducer from '../reducers/rootReducer';
 import { middleware } from '../store';
 
 export const findByTestAtrr = (component, attr) => {
